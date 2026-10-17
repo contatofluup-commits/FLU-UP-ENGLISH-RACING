@@ -1,0 +1,442 @@
+[
+  {
+    "level": "A1",
+    "category": "Present Simple",
+    "pt": "Ela trabalha em um hospital.",
+    "options": [
+      "She works in a hospital.",
+      "She work in a hospital.",
+      "She is work in a hospital."
+    ],
+    "ok": "She works in a hospital."
+  },
+  {
+    "level": "A1",
+    "category": "Present Simple",
+    "pt": "Eles jogam futebol aos sábados.",
+    "options": [
+      "They play soccer on Saturdays.",
+      "They plays soccer on Saturdays.",
+      "They playing soccer on Saturdays."
+    ],
+    "ok": "They play soccer on Saturdays."
+  },
+  {
+    "level": "A1",
+    "category": "Present Simple",
+    "pt": "Meu irmão não gosta de café.",
+    "options": [
+      "My brother does not like coffee.",
+      "My brother do not like coffee.",
+      "My brother does not likes coffee."
+    ],
+    "ok": "My brother does not like coffee."
+  },
+  {
+    "level": "A1",
+    "category": "Present Simple",
+    "pt": "Você acorda cedo?",
+    "options": [
+      "Do you wake up early?",
+      "Does you wake up early?",
+      "Are you wake up early?"
+    ],
+    "ok": "Do you wake up early?"
+  },
+  {
+    "level": "A1",
+    "category": "Can",
+    "pt": "Eu consigo nadar.",
+    "options": [
+      "I can swim.",
+      "I can to swim.",
+      "I can swimming."
+    ],
+    "ok": "I can swim."
+  },
+  {
+    "level": "A1",
+    "category": "Can",
+    "pt": "Ela sabe cozinhar muito bem.",
+    "options": [
+      "She can cook very well.",
+      "She cans cook very well.",
+      "She can cooks very well."
+    ],
+    "ok": "She can cook very well."
+  },
+  {
+    "level": "A1",
+    "category": "Want to",
+    "pt": "Nós queremos aprender francês.",
+    "options": [
+      "We want to learn French.",
+      "We want learn French.",
+      "We want learning French."
+    ],
+    "ok": "We want to learn French."
+  },
+  {
+    "level": "A1",
+    "category": "Need to",
+    "pt": "Eu preciso limpar meu quarto.",
+    "options": [
+      "I need to clean my room.",
+      "I need clean my room.",
+      "I need cleaning my room."
+    ],
+    "ok": "I need to clean my room."
+  },
+  {
+    "level": "A1",
+    "category": "Future with Will",
+    "pt": "Eu vou ligar para você amanhã.",
+    "options": [
+      "I will call you tomorrow.",
+      "I will calling you tomorrow.",
+      "I will called you tomorrow."
+    ],
+    "ok": "I will call you tomorrow."
+  },
+  {
+    "level": "A1",
+    "category": "Present Continuous",
+    "pt": "Ele está ouvindo música agora.",
+    "options": [
+      "He is listening to music now.",
+      "He listening to music now.",
+      "He is listen to music now."
+    ],
+    "ok": "He is listening to music now."
+  },
+  {
+    "level": "A1",
+    "category": "Present Continuous",
+    "pt": "Nós estamos preparando o jantar.",
+    "options": [
+      "We are preparing dinner.",
+      "We preparing dinner.",
+      "We is preparing dinner."
+    ],
+    "ok": "We are preparing dinner."
+  },
+  {
+    "level": "A2",
+    "category": "Past Simple",
+    "pt": "Eu perdi minhas chaves ontem.",
+    "options": [
+      "I lost my keys yesterday.",
+      "I lose my keys yesterday.",
+      "I have lose my keys yesterday."
+    ],
+    "ok": "I lost my keys yesterday."
+  },
+  {
+    "level": "A2",
+    "category": "Past Simple",
+    "pt": "Ela comprou um computador novo.",
+    "options": [
+      "She bought a new computer.",
+      "She buyed a new computer.",
+      "She was buy a new computer."
+    ],
+    "ok": "She bought a new computer."
+  },
+  {
+    "level": "A2",
+    "category": "Past Simple",
+    "pt": "Eles viram um filme na sexta-feira.",
+    "options": [
+      "They saw a movie on Friday.",
+      "They seen a movie on Friday.",
+      "They have saw a movie on Friday."
+    ],
+    "ok": "They saw a movie on Friday."
+  },
+  {
+    "level": "A2",
+    "category": "Past Simple",
+    "pt": "Nós não fomos à festa.",
+    "options": [
+      "We did not go to the party.",
+      "We did not went to the party.",
+      "We do not went to the party."
+    ],
+    "ok": "We did not go to the party."
+  },
+  {
+    "level": "A2",
+    "category": "Past Simple",
+    "pt": "Você enviou o e-mail?",
+    "options": [
+      "Did you send the email?",
+      "Did you sent the email?",
+      "Do you sent the email?"
+    ],
+    "ok": "Did you send the email?"
+  },
+  {
+    "level": "A2",
+    "category": "Past Continuous",
+    "pt": "Eu estava dirigindo quando você ligou.",
+    "options": [
+      "I was driving when you called.",
+      "I am driving when you called.",
+      "I were driving when you called."
+    ],
+    "ok": "I was driving when you called."
+  },
+  {
+    "level": "A2",
+    "category": "Past Continuous",
+    "pt": "Eles estavam dormindo às 23h.",
+    "options": [
+      "They were sleeping at 11 p.m.",
+      "They was sleeping at 11 p.m.",
+      "They were sleep at 11 p.m."
+    ],
+    "ok": "They were sleeping at 11 p.m."
+  },
+  {
+    "level": "A2",
+    "category": "Should",
+    "pt": "Você deveria beber mais água.",
+    "options": [
+      "You should drink more water.",
+      "You should to drink more water.",
+      "You should drinking more water."
+    ],
+    "ok": "You should drink more water."
+  },
+  {
+    "level": "A2",
+    "category": "Need to",
+    "pt": "Ela precisa sair agora.",
+    "options": [
+      "She needs to leave now.",
+      "She need to leave now.",
+      "She needs leave now."
+    ],
+    "ok": "She needs to leave now."
+  },
+  {
+    "level": "A2",
+    "category": "Want to",
+    "pt": "Eu quero conhecer o Japão.",
+    "options": [
+      "I want to visit Japan.",
+      "I want visiting Japan.",
+      "I want visit Japan."
+    ],
+    "ok": "I want to visit Japan."
+  },
+  {
+    "level": "A2",
+    "category": "Future with Will",
+    "pt": "Nós vamos resolver esse problema.",
+    "options": [
+      "We will solve this problem.",
+      "We will solved this problem.",
+      "We will solving this problem."
+    ],
+    "ok": "We will solve this problem."
+  },
+  {
+    "level": "A2",
+    "category": "Present Continuous",
+    "pt": "O que eles estão construindo?",
+    "options": [
+      "What are they building?",
+      "What they are building?",
+      "What do they building?"
+    ],
+    "ok": "What are they building?"
+  },
+  {
+    "level": "B1",
+    "category": "Present Perfect",
+    "pt": "Eu já terminei meu relatório.",
+    "options": [
+      "I have already finished my report.",
+      "I have already finish my report.",
+      "I had already finish my report."
+    ],
+    "ok": "I have already finished my report."
+  },
+  {
+    "level": "B1",
+    "category": "Present Perfect",
+    "pt": "Ela nunca experimentou sushi.",
+    "options": [
+      "She has never tried sushi.",
+      "She have never tried sushi.",
+      "She has never try sushi."
+    ],
+    "ok": "She has never tried sushi."
+  },
+  {
+    "level": "B1",
+    "category": "Present Perfect",
+    "pt": "Você já esteve em Londres?",
+    "options": [
+      "Have you ever been to London?",
+      "Did you ever been to London?",
+      "Have you ever went to London?"
+    ],
+    "ok": "Have you ever been to London?"
+  },
+  {
+    "level": "B1",
+    "category": "Present Perfect",
+    "pt": "Nós moramos aqui há cinco anos.",
+    "options": [
+      "We have lived here for five years.",
+      "We live here since five years.",
+      "We have lived here since five years."
+    ],
+    "ok": "We have lived here for five years."
+  },
+  {
+    "level": "B1",
+    "category": "Past Perfect",
+    "pt": "O trem já tinha partido quando chegamos.",
+    "options": [
+      "The train had already left when we arrived.",
+      "The train has already left when we arrived.",
+      "The train had already leave when we arrived."
+    ],
+    "ok": "The train had already left when we arrived."
+  },
+  {
+    "level": "B1",
+    "category": "Past Perfect",
+    "pt": "Eu tinha esquecido o compromisso.",
+    "options": [
+      "I had forgotten the appointment.",
+      "I had forgot the appointment.",
+      "I have forget the appointment."
+    ],
+    "ok": "I had forgotten the appointment."
+  },
+  {
+    "level": "B1",
+    "category": "Past Continuous",
+    "pt": "O telefone tocou enquanto eu tomava banho.",
+    "options": [
+      "The phone rang while I was taking a shower.",
+      "The phone rang while I took a shower.",
+      "The phone was rang while I took a shower."
+    ],
+    "ok": "The phone rang while I was taking a shower."
+  },
+  {
+    "level": "B1",
+    "category": "Should",
+    "pt": "Eles deveriam ter avisado antes.",
+    "options": [
+      "They should have warned us earlier.",
+      "They should warned us earlier.",
+      "They should to have warned us earlier."
+    ],
+    "ok": "They should have warned us earlier."
+  },
+  {
+    "level": "B1",
+    "category": "Present Simple",
+    "pt": "Com que frequência você participa de reuniões?",
+    "options": [
+      "How often do you attend meetings?",
+      "How often are you attend meetings?",
+      "How often does you attend meetings?"
+    ],
+    "ok": "How often do you attend meetings?"
+  },
+  {
+    "level": "B2",
+    "category": "Past Perfect",
+    "pt": "Quando a reunião começou, ela já havia analisado os dados.",
+    "options": [
+      "By the time the meeting started, she had analyzed the data.",
+      "By the time the meeting started, she has analyzed the data.",
+      "By the time the meeting started, she had analyze the data."
+    ],
+    "ok": "By the time the meeting started, she had analyzed the data."
+  },
+  {
+    "level": "B2",
+    "category": "Present Perfect",
+    "pt": "Os custos aumentaram significativamente nos últimos meses.",
+    "options": [
+      "Costs have increased significantly over the past few months.",
+      "Costs had increase significantly over the past few months.",
+      "Costs increased significantly since the past few months."
+    ],
+    "ok": "Costs have increased significantly over the past few months."
+  },
+  {
+    "level": "B2",
+    "category": "Past Continuous",
+    "pt": "Eu estava revisando a proposta quando o cliente mudou os requisitos.",
+    "options": [
+      "I was reviewing the proposal when the client changed the requirements.",
+      "I have reviewed the proposal when the client changed the requirements.",
+      "I was review the proposal when the client changed the requirements."
+    ],
+    "ok": "I was reviewing the proposal when the client changed the requirements."
+  },
+  {
+    "level": "B2",
+    "category": "Should",
+    "pt": "Você deveria ter considerado os riscos antes de decidir.",
+    "options": [
+      "You should have considered the risks before deciding.",
+      "You should considered the risks before deciding.",
+      "You should have consider the risks before deciding."
+    ],
+    "ok": "You should have considered the risks before deciding."
+  },
+  {
+    "level": "B2",
+    "category": "Need to",
+    "pt": "Precisamos evitar que o prazo seja prorrogado novamente.",
+    "options": [
+      "We need to prevent the deadline from being extended again.",
+      "We need prevent the deadline to be extending again.",
+      "We need avoiding the deadline being extended again."
+    ],
+    "ok": "We need to prevent the deadline from being extended again."
+  },
+  {
+    "level": "B2",
+    "category": "Present Perfect",
+    "pt": "Há quanto tempo vocês vêm negociando esse contrato?",
+    "options": [
+      "How long have you been negotiating this contract?",
+      "How long have you negotiating this contract?",
+      "How long had you negotiating this contract?"
+    ],
+    "ok": "How long have you been negotiating this contract?"
+  },
+  {
+    "level": "B2",
+    "category": "Past Perfect",
+    "pt": "Ela já tinha enviado os documentos antes de perceber o erro.",
+    "options": [
+      "She had sent the documents before noticing the mistake.",
+      "She has send the documents before noticing the mistake.",
+      "She had send the documents before noticing the mistake."
+    ],
+    "ok": "She had sent the documents before noticing the mistake."
+  },
+  {
+    "level": "B2",
+    "category": "Future with Will",
+    "pt": "Acredito que eles aceitarão a proposta assim que a revisarem.",
+    "options": [
+      "I believe they will accept the proposal once they review it.",
+      "I believe they will accepted the proposal once they reviewed it.",
+      "I believe they accepting the proposal once they will review it."
+    ],
+    "ok": "I believe they will accept the proposal once they review it."
+  }
+]

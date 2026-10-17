@@ -1,0 +1,6 @@
+{
+  "name":"flu-up-english-racing-multiplayer","version":"1.0.0","private":true,
+  "description":"Flu Up English School multiplayer grammar kart racing",
+  "scripts":{"start":"node server.js","dev":"node server.js"},
+  "engines":{"node":">=18"},"dependencies":{"express":"^4.21.2","socket.io":"^4.8.1"}
+}
