@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Forever Young Song Week</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: a 1984 sunset hero, then a sticky five-day tab bar; each day is one column of activity blocks. */
+:root{
+  --bg:#f5f1fa; --surface:#ffffff; --surface-2:#ece6f6; --ink:#1f1a3a; --muted:#625b80; --line:#d9d1ea;
+  --accent:#d9365e; --accent-ink:#ffffff; --gold:#c98a0c; --sky:#3a36a8; --ok:#1d8a5a; --ok-bg:#e1f4ea; --bad:#c0392b; --bad-bg:#fbe5e2;
+  --hero-top:#2b2373; --hero-mid:#7b3d9a; --hero-low:#e2577a; --hero-ink:#fff8ee;
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Space Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#13102a; --surface:#1d1940; --surface-2:#272254; --ink:#f2eeff; --muted:#aaa3cc; --line:#3a3470;
+  --accent:#ff6d8f; --accent-ink:#1a0f22; --gold:#f2bf4a; --sky:#9c98ff; --ok:#5fd39b; --ok-bg:#143a2b; --bad:#ff8a7a; --bad-bg:#43201f;
+  --hero-top:#0e0b2b; --hero-mid:#3e1f66; --hero-low:#a8365f; --hero-ink:#fff8ee; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13102a; --surface:#1d1940; --surface-2:#272254; --ink:#f2eeff; --muted:#aaa3cc; --line:#3a3470;
+  --accent:#ff6d8f; --accent-ink:#1a0f22; --gold:#f2bf4a; --sky:#9c98ff; --ok:#5fd39b; --ok-bg:#143a2b; --bad:#ff8a7a; --bad-bg:#43201f;
+  --hero-top:#0e0b2b; --hero-mid:#3e1f66; --hero-low:#a8365f; --hero-ink:#fff8ee; color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.35rem,3.6vw,1.8rem);font-weight:700}
+h3{font-size:1.05rem;font-weight:700}
+p{margin:0}
+a{color:var(--sky)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* HERO */
+.hero{background:linear-gradient(180deg,var(--hero-top) 0%,var(--hero-mid) 55%,var(--hero-low) 100%);color:var(--hero-ink);position:relative;overflow:hidden}
+.hero .wrap{padding-block:40px 0;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;position:relative;z-index:1}
+.hero-text{display:grid;gap:14px;padding-bottom:36px;min-width:0}
+.hero .eyebrow{color:#f9d7e2}
+.hero h1{font-size:clamp(2.4rem,9vw,4.6rem);font-weight:800;letter-spacing:-.02em;line-height:.95}
+.hero h1 span{display:block;background:linear-gradient(180deg,#ffe9a8,#ffb36b 60%,#ff7a9a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{max-width:34ch;font-size:1.05rem;color:#fbe9f0}
+.sun{width:clamp(150px,30vw,250px);aspect-ratio:1;max-width:100%;border-radius:50% 50% 0 0/50% 50% 0 0;height:auto;
+  background:linear-gradient(180deg,#ffe58f 0%,#ffb05c 45%,#ff5f8a 100%);
+  -webkit-mask-image:linear-gradient(180deg,#000 0 52%,transparent 52% 56%,#000 56% 64%,transparent 64% 69%,#000 69% 76%,transparent 76% 82%,#000 82% 88%,transparent 88% 95%,#000 95%);
+  mask-image:linear-gradient(180deg,#000 0 52%,transparent 52% 56%,#000 56% 64%,transparent 64% 69%,#000 69% 76%,transparent 76% 82%,#000 82% 88%,transparent 88% 95%,#000 95%);
+  aspect-ratio:2/1.15}
+.hero-grid{position:absolute;inset:auto 0 0 0;height:60px;background:
+  repeating-linear-gradient(90deg,rgba(255,255,255,.14) 0 1px,transparent 1px 48px),
+  repeating-linear-gradient(180deg,rgba(255,255,255,.14) 0 1px,transparent 1px 14px);opacity:.6}
+.who{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.who .lbl{font-size:.9rem;color:#fbe9f0;margin-right:4px}
+.chip{border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:6px 14px;font-weight:700;font-size:.92rem}
+.chip[aria-pressed="true"]{background:#fff8ee;color:#3a1d4f;border-color:#fff8ee}
+.meter{display:flex;align-items:center;gap:12px;font-family:var(--f-mono);font-size:.85rem}
+.meter-bar{flex:1;max-width:260px;height:10px;border-radius:99px;background:rgba(255,255,255,.2);overflow:hidden}
+.meter-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffe58f,#ff8aa8);transition:width .5s}
+
+/* TABS */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.tab{flex:0 0 auto;border:1.5px solid var(--line);background:transparent;border-radius:12px;padding:7px 12px;display:grid;text-align:left;line-height:1.2;min-width:0}
+.tab b{font-family:var(--f-display);font-size:.8rem;font-weight:700}
+.tab small{font-size:.78rem;color:var(--muted)}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.tab[aria-selected="true"] small{color:var(--bg);opacity:.8}
+.tab.done b::after{content:" ✓";color:var(--ok)}
+.tab[aria-selected="true"].done b::after{color:var(--gold)}
+
+/* DAY */
+main{padding-block:28px 60px}
+.day{display:grid;gap:22px}
+.day-head{display:grid;gap:8px}
+.day-head p{color:var(--muted);max-width:62ch}
+.plan{display:flex;flex-wrap:wrap;gap:8px}
+.plan span{font-family:var(--f-mono);font-size:.78rem;background:var(--surface-2);border-radius:8px;padding:4px 9px;color:var(--muted)}
+.block{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:14px;min-width:0}
+.block-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.block-head > div{display:grid;gap:4px;min-width:0}
+.block-head .how{color:var(--muted);font-size:.95rem}
+.star{flex:0 0 auto;font-size:1.3rem;color:var(--line);transition:transform .3s,color .3s}
+.star.on{color:var(--gold);transform:scale(1.15) rotate(-8deg)}
+.explain{display:grid;gap:10px;max-width:66ch}
+.explain p{font-size:1.02rem}
+details.pt{background:var(--surface-2);border-radius:10px;padding:10px 14px}
+details.pt summary{cursor:pointer;font-weight:700;color:var(--sky);font-size:.92rem}
+details.pt[open] summary{margin-bottom:6px}
+details.pt p{font-size:.96rem}
+.lyric{font-family:var(--f-mono);font-size:.95rem;background:var(--surface-2);border-left:0;border-radius:8px;padding:2px 8px}
+.note{font-size:.9rem;color:var(--muted)}
+
+/* WATCH CARD */
+.watch{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;text-decoration:none;color:var(--ink);background:linear-gradient(120deg,var(--hero-top),var(--hero-low));border-radius:var(--r);padding:18px;color:var(--hero-ink)}
+.watch .play{width:64px;height:64px;border-radius:50%;background:#fff8ee;display:grid;place-items:center}
+.watch .play::before{content:"";border-left:20px solid #c2345b;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px}
+.watch b{font-family:var(--f-display);font-size:1.05rem;display:block}
+.watch span{font-size:.92rem;opacity:.9}
+
+/* STORY FACTS */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.fact{background:var(--surface-2);border-radius:10px;padding:12px;display:grid;gap:2px}
+.fact b{font-family:var(--f-display);font-size:1.15rem}
+.fact span{font-size:.88rem;color:var(--muted)}
+
+/* MCQ */
+.q{display:grid;gap:8px;padding-block:6px;border-top:1px dashed var(--line)}
+.q:first-child{border-top:0}
+.q p{font-weight:700}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 12px;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--sky)}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ink)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--ink);text-decoration:line-through}
+.opt:disabled{cursor:default}
+.why{font-size:.93rem;color:var(--muted)}
+.score{font-family:var(--f-mono);font-size:.9rem;color:var(--muted)}
+
+/* GAP */
+.gap-line{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;padding-block:6px;border-top:1px dashed var(--line)}
+.gap-line:first-child{border-top:0}
+.gap-line .n{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);width:1.6em}
+.gap-line input{font:inherit;font-family:var(--f-mono);font-size:.95rem;border:0;border-bottom:2px solid var(--sky);background:var(--surface-2);color:var(--ink);padding:3px 8px;border-radius:6px 6px 0 0;width:11ch;max-width:100%}
+.gap-line input.wide{width:20ch}
+.gap-line input.ok{border-color:var(--ok);background:var(--ok-bg)}
+.gap-line input.no{border-color:var(--bad);background:var(--bad-bg)}
+.gap-line .key{font-size:.88rem;color:var(--ok);font-family:var(--f-mono)}
+.gap-line .hint{font-size:.86rem;color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{border:0;background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:9px 16px;font-weight:700}
+.btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn:disabled{opacity:.5;cursor:default}
+.feedback{font-weight:700}
+.feedback.good{color:var(--ok)} .feedback.meh{color:var(--bad)}
+
+/* FLIP CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.flip{perspective:800px;border:0;background:none;padding:0;height:150px;text-align:left}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;border-radius:12px;padding:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;align-content:center;gap:4px;overflow:hidden}
+.flip .f{background:var(--surface-2);border:1.5px solid var(--line)}
+.flip .f b{font-family:var(--f-display);font-size:.98rem}
+.flip .f small{color:var(--muted);font-size:.8rem}
+.flip .b{background:var(--sky);color:var(--bg);transform:rotateY(180deg);font-size:.86rem;line-height:1.35}
+.flip .b em{font-style:normal;font-weight:700;color:var(--bg)}
+
+/* MATCH */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:grid;gap:8px;align-content:start;min-width:0}
+.tile{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 11px;text-align:left;font-size:.94rem;min-width:0;overflow-wrap:anywhere}
+.tile.sel{border-color:var(--sky);background:var(--surface-2);box-shadow:0 0 0 2px var(--sky) inset}
+.tile.gone{background:var(--ok-bg);border-color:var(--ok);opacity:.7;cursor:default}
+.tile.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* DETECTIVE */
+.det{display:flex;flex-wrap:wrap;gap:4px;font-family:var(--f-mono);font-size:.98rem;padding-block:6px;border-top:1px dashed var(--line);align-items:center}
+.det:first-child{border-top:0}
+.w{border:0;background:var(--surface-2);border-radius:6px;padding:3px 7px}
+.w.right{background:var(--ok-bg);color:var(--ok);font-weight:700}
+.w.wrong{background:var(--bad-bg);color:var(--bad)}
+.det .fix{font-family:var(--f-body);font-size:.9rem;color:var(--ok);margin-left:6px}
+
+/* ORDER + BUILDER */
+.pool,.line{display:flex;flex-wrap:wrap;gap:8px;min-height:52px;padding:10px;border-radius:10px}
+.pool{background:var(--surface-2)}
+.line{border:2px dashed var(--line)}
+.line.ok{border-color:var(--ok);background:var(--ok-bg)}
+.line.no{border-color:var(--bad)}
+.ordlist{display:grid;gap:6px;counter-reset:o;padding:10px;border:2px dashed var(--line);border-radius:10px;min-height:52px}
+.ordlist .tile{counter-increment:o}
+.ordlist .tile::before{content:counter(o)". ";font-family:var(--f-mono);color:var(--muted)}
+.ordlist.ok{border-color:var(--ok);background:var(--ok-bg)}
+.ordlist.no{border-color:var(--bad)}
+.word{border:1.5px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 10px;font-family:var(--f-mono);font-size:.95rem}
+.builder-item{display:grid;gap:8px;padding-block:8px;border-top:1px dashed var(--line)}
+.builder-item:first-of-type{border-top:0}
+
+/* TIMELINE */
+.timeline{overflow-x:auto}
+.tl{min-width:520px;display:grid;gap:18px;padding:8px 4px}
+.tl-row{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center}
+.tl-row .lab{font-family:var(--f-display);font-size:.82rem;font-weight:700}
+.tl-row .lab small{display:block;font-family:var(--f-body);font-weight:400;color:var(--muted);font-size:.8rem}
+.track{position:relative;height:46px;border-bottom:2px solid var(--muted)}
+.track .now,.track .pt{position:absolute;bottom:-9px;width:16px;height:16px;border-radius:50%;transform:translateX(-50%)}
+.track .now{left:6%;background:var(--muted)}
+.track .pt{background:var(--accent)}
+.track .tag{position:absolute;top:0;transform:translateX(-50%);font-family:var(--f-mono);font-size:.72rem;color:var(--muted);white-space:nowrap}
+.track .bar{position:absolute;bottom:4px;height:12px;border-radius:6px;background:var(--sky);opacity:.85}
+.track .check{position:absolute;bottom:6px;font-weight:700;color:var(--ok);transform:translateX(-50%)}
+.forms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.form-card{border-radius:12px;padding:14px;background:var(--surface-2);display:grid;gap:6px;min-width:0}
+.form-card .f{font-family:var(--f-mono);font-size:.9rem;color:var(--accent);font-weight:700}
+.form-card ul{margin:0;padding-left:18px;font-size:.94rem}
+
+/* SPEED */
+.speed{display:grid;gap:12px;justify-items:start}
+.speed-top{display:flex;gap:18px;font-family:var(--f-mono);font-size:.95rem;flex-wrap:wrap}
+.speed-top b{font-size:1.3rem;color:var(--accent)}
+.speed-q{font-size:1.15rem;font-weight:700;min-height:3em}
+.clock{height:8px;width:100%;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.clock i{display:block;height:100%;background:var(--accent);width:100%}
+
+/* MEMORY */
+.memory{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mcard{aspect-ratio:4/3;max-width:100%;border:0;border-radius:10px;background:linear-gradient(140deg,var(--hero-mid),var(--hero-low));color:transparent;font-family:var(--f-mono);font-weight:700;font-size:clamp(.78rem,2.6vw,1rem);display:grid;place-items:center;padding:4px;overflow-wrap:anywhere}
+.mcard.up{background:var(--surface-2);color:var(--ink);border:1.5px solid var(--sky)}
+.mcard.done{background:var(--ok-bg);color:var(--ok);border:1.5px solid var(--ok)}
+
+/* SPIN + WRITE */
+.spin-card{min-height:110px;border-radius:14px;padding:18px;display:grid;place-items:center;text-align:center;font-family:var(--f-display);font-size:clamp(1rem,3vw,1.3rem);background:linear-gradient(120deg,var(--hero-top),var(--hero-low));color:var(--hero-ink)}
+textarea{width:100%;min-height:220px;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--bg);color:var(--ink);resize:vertical}
+.checks{display:grid;gap:6px;font-size:.95rem}
+.checks div::before{content:"○ ";color:var(--muted)}
+.checks div.ok{color:var(--ok)}
+.checks div.ok::before{content:"● "}
+.frames{display:grid;gap:6px;font-family:var(--f-mono);font-size:.9rem}
+.frames span{background:var(--surface-2);border-radius:8px;padding:6px 10px}
+
+.final{text-align:center;display:grid;gap:10px;justify-items:center;padding:28px 20px;background:linear-gradient(180deg,var(--hero-top),var(--hero-low));color:var(--hero-ink);border-radius:var(--r)}
+.final h3{font-size:1.4rem}
+.next{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+footer{border-top:1px solid var(--line);padding-block:24px 40px;color:var(--muted);font-size:.92rem}
+footer .wrap{display:grid;gap:8px}
+.sound{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:6;border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:7px 12px;font-size:.85rem}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,120px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:700;z-index:7;transition:transform .35s;max-width:calc(100% - 32px)}
+.toast.show{transform:translate(-50%,0)}
+
+@media (max-width:600px){
+  .hero .wrap{grid-template-columns:1fr;padding-block:28px 0}
+  .sun{position:absolute;right:-30px;bottom:0;width:170px;opacity:.55;z-index:-1}
+  .hero-text{padding-bottom:28px}
+  .match{grid-template-columns:1fr 1fr;gap:6px}
+  .tile{font-size:.86rem;padding:8px}
+  .watch{grid-template-columns:1fr}
+  .memory{grid-template-columns:repeat(4,1fr);gap:6px}
+  .block{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.player{position:fixed;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:8;width:min(360px,calc(100% - 24px));background:var(--surface);border:1.5px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);overflow:hidden}
+.player-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;font-family:var(--f-display);font-size:.8rem;font-weight:700}
+.player-bar button{border:0;background:var(--surface-2);border-radius:8px;padding:4px 10px;font-size:.8rem}
+.player .vid{aspect-ratio:16/9;max-width:100%}
+.player.min .vid{height:0;aspect-ratio:auto;overflow:hidden}
+.player iframe{width:100%;height:100%;border:0;display:block}
+main{padding-bottom:280px}
+</style>
+
+</head><body>
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-text">
+      <span class="eyebrow">Song study · Alphaville · 1984</span>
+      <h1>Forever<span>Young</span></h1>
+      <p class="hero-sub">Five short sessions for this week: listen, learn the words, play with future tenses and write to your future self.</p>
+      <div class="who" role="group" aria-label="Who is studying?">
+        <span class="lbl">Who's studying?</span>
+        <button class="chip" id="who-julia" data-name="Julia" aria-pressed="false">Julia</button>
+        <button class="chip" id="who-jennifer" data-name="Jennifer" aria-pressed="false">Jennifer</button>
+      </div>
+      <div class="meter"><span id="meter-txt">0 / 13 ★</span><div class="meter-bar"><i id="meter-fill"></i></div></div>
+    </div>
+    <div class="sun" aria-hidden="true"></div>
+  </div>
+  <div class="hero-grid" aria-hidden="true"></div>
+</header>
+
+<nav class="tabs" aria-label="Days of the week">
+  <div class="wrap" role="tablist">
+    <button class="tab" role="tab" id="tab-1" data-day="1"><b>Day 1</b><small>Meet the song</small></button>
+    <button class="tab" role="tab" id="tab-2" data-day="2"><b>Day 2</b><small>Listen closely</small></button>
+    <button class="tab" role="tab" id="tab-3" data-day="3"><b>Day 3</b><small>Grammar time</small></button>
+    <button class="tab" role="tab" id="tab-4" data-day="4"><b>Day 4</b><small>Game day</small></button>
+    <button class="tab" role="tab" id="tab-5" data-day="5"><b>Day 5</b><small>Your turn</small></button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ================= DAY 1 ================= -->
+<section class="day" id="day-1" data-day="1">
+  <div class="day-head">
+    <span class="eyebrow">Day 1 · about 25 minutes</span>
+    <h2>Meet the song</h2>
+    <p>Discover where the song comes from, watch the video and learn the key words before you listen in detail.</p>
+    <div class="plan"><span>Read the story</span><span>Watch the video</span><span>10 word cards</span><span>Match game</span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><div><span class="eyebrow">The story</span><h3>A song about being young in a scary time</h3></div></div>
+    <div class="facts">
+      <div class="fact"><b>1984</b><span>Year of the song</span></div>
+      <div class="fact"><b>Münster</b><span>Alphaville's city, in Germany</span></div>
+      <div class="fact"><b>Synth-pop</b><span>Pop music made with synthesizers</span></div>
+      <div class="fact"><b>Marian Gold</b><span>The singer</span></div>
+    </div>
+    <div class="explain">
+      <p>In 1984 the world was in the <strong>Cold War</strong>. The USA and the Soviet Union had thousands of nuclear bombs, and many young people were afraid that a war would end everything. In "Forever Young", the singer is young and wants to enjoy life: dance, play music, follow his dreams. But he also asks a big question: <em>do you really want to live forever?</em></p>
+      <p>The song is happy and sad at the same time. We call this feeling <strong>bittersweet</strong> or <strong>nostalgic</strong>.</p>
+      <details class="pt"><summary>Em português</summary>
+        <p>Em 1984 o mundo vivia a Guerra Fria. EUA e União Soviética tinham milhares de bombas nucleares, e muitos jovens tinham medo de uma guerra acabar com tudo. Na música, o cantor quer aproveitar a juventude (dançar, tocar, sonhar), mas também pergunta: "você quer mesmo viver para sempre?". É uma música alegre e triste ao mesmo tempo: <strong>bittersweet</strong> (agridoce).</p>
+      </details>
+    </div>
+  </div>
+
+  <a class="watch" href="https://www.youtube.com/watch?v=YHRvDo8rUoQ" target="_blank" rel="noopener">
+    <span class="play" aria-hidden="true"></span>
+    <div><b>Watch "Forever Young" on YouTube</b><span>Watch it once just for pleasure. Don't worry about every word. Then come back and answer the questions below.</span></div>
+  </a>
+
+  <div class="block" data-act="d1-gist">
+    <div class="block-head"><div><span class="eyebrow">After the first listening</span><h3>What's the big idea?</h3><p class="how">Choose one answer. You get feedback right away.</p></div><span class="star" aria-label="star">★</span></div>
+    <div class="mcq" data-set="d1gist"></div>
+    <p class="score"></p>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><div><span class="eyebrow">Vocabulary</span><h3>10 words from the song</h3><p class="how">Tap a card to see the meaning, the Portuguese and an example with a future tense.</p></div></div>
+    <div class="cards" id="flipcards"></div>
+  </div>
+
+  <div class="block" data-act="d1-match">
+    <div class="block-head"><div><span class="eyebrow">Game</span><h3>Match the pairs</h3><p class="how">Tap an expression on the left, then its meaning on the right.</p></div><span class="star" aria-label="star">★</span></div>
+    <div class="match" id="match1"></div>
+    <div class="row"><button class="btn ghost" id="match1-reset">Shuffle and play again</button><span class="score" id="match1-score"></span></div>
+  </div>
+  <div class="next"><span></span><button class="btn" data-go="2">Next: Day 2 →</button></div>
+</section>
+
+<!-- ================= DAY 2 ================= -->
+<section class="day" id="day-2" data-day="2" hidden>
+  <div class="day-head">
+    <span class="eyebrow">Day 2 · about 25 minutes</span>
+    <h2>Listen closely</h2>
+    <p>Today you listen for details. Open the video in another tab and pause it as many times as you need.</p>
+    <div class="plan"><span>Fill the gaps</span><span>Wrong word detective</span><span>Put the song in order</span><span>Sounds of the song</span></div>
+  </div>
+
+  <a class="watch" href="https://www.youtube.com/watch?v=YHRvDo8rUoQ" target="_blank" rel="noopener">
+    <span class="play" aria-hidden="true"></span>
+    <div><b>Open the video</b><span>Listen and pause. Keep this page open next to it.</span></div>
+  </a>
+
+  <div class="block" data-act="d2-gap">
+    <div class="block-head"><div><span class="eyebrow">Listening</span><h3>Fill the gaps</h3><p class="how">Listen and write the missing word in each line. Then press Check.</p></div><span class="star" aria-label="star">★</span></div>
+    <div class="gap" data-set="d2gap"></div>
+    <div class="row"><button class="btn" data-check="d2gap">Check</button><button class="btn ghost" data-reveal="d2gap">Show answers</button><span class="feedback" data-fb="d2gap"></span></div>
+  </div>
+
+  <div class="block" data-act="d2-detective">
+    <div class="block-head"><div><span class="eyebrow">Listening</span><h3>Wrong word detective</h3><p class="how">Each line has <strong>one</strong> wrong word. Listen and tap it.</p></div><span class="star" aria-label="star">★</span></div>
+    <div id="detective"></div>
+    <p class="score" id="det-score"></p>
+  </div>
+
+  <div class="block" data-act="d2-order">
+    <div class="block-head"><div><span class="eyebrow">Listening</span><h3>What happens first?</h3><p class="how">These sentences describe the song in our own words. Tap them in the order you hear them (first time only).</p></div><span class="star" aria-label="star">★</span></div>
+    <div class="pool" id="order-pool"></div>
+    <div class="ordlist" id="order-line" aria-label="Your order"></div>
+    <div class="row"><button class="btn" id="order-check">Check order</button><button class="btn ghost" id="order-reset">Start again</button><span class="feedback" id="order-fb"></span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><div><span class="eyebrow">Pronunciation</span><h3>Sounds of the song</h3></div></div>
+    <div class="forms">
+      <div class="form-card"><span class="f">gonna = going to</span><p>"Are you <strong>gonna</strong> drop the bomb?" Informal, used in songs and speech. In a test, write <em>going to</em>.</p></div>
+      <div class="form-card"><span class="f">wanna = want to</span><p>You'll hear it in many songs. "I <strong>wanna</strong> be young." Again: speak it, but don't write it in formal English.</p></div>
+      <div class="form-card"><span class="f">we'll = we will</span><p>"<strong>We'll</strong> let them come true." Say it like "weel", one short sound.</p></div>
+    </div>
+    <details class="pt"><summary>Em português</summary><p><em>Gonna</em> e <em>wanna</em> são formas faladas de <em>going to</em> e <em>want to</em>. Aparecem muito em músicas, mas na escrita formal (e nas provas) use a forma completa. Cante junto com o refrão para treinar o ritmo.</p></details>
+  </div>
+  <div class="next"><button class="btn ghost" data-go="1">← Day 1</button><button class="btn" data-go="3">Next: Day 3 →</button></div>
+</section>
+
+<!-- ================= DAY 3 ================= -->
+<section class="day" id="day-3" data-day="3" hidden>
+  <div class="day-head">
+    <span class="eyebrow">Day 3 · about 30 minutes</span>
+    <h2>Grammar time: the future in the song</h2>
+    <p>The song talks a lot about the future. Today we find the future forms in the lyrics and connect them to our unit: <strong>will be + -ing</strong> and <strong>will have + past participle</strong>.</p>
+    <div class="plan"><span>Future in the lyrics</span><span>Timeline</span><span>Choose the tense</span><span>Write the verb</span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><div><span class="eyebrow">Look at the lyrics</span><h3>Three futures in one song</h3></div></div>
+    <div class="forms">
+      <div class="form-card"><span class="f">will + verb</span><p class="lyric">"Sooner or later they all will be gone"</p><p>A <strong>prediction</strong>: the singer is sure this happens one day.</p></div>
+      <div class="form-card"><span class="f">'ll + verb</span><p class="lyric">"We'll let them come true"</p><p>A <strong>promise / decision</strong> about dreams.</p></div>
+      <div class="form-card"><span class="f">going to (gonna)</span><p class="lyric">"Are you gonna drop the bomb or not?"</p><p>A question about someone's <strong>plan or intention</strong>.</p></div>
+    </div>
+  </div>
+
+  <div class="block" data-act="d3-song">
+    <div class="block-head"><div><span class="eyebrow">Check</span><h3>Song grammar quiz</h3></div><span class="star" aria-label="star">★</span></div>
+    <div class="mcq" data-set="d3song"></div>
+    <p class="score"></p>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><div><span class="eyebrow">Our unit</span><h3>Two more futures: in progress or finished?</h3></div></div>
+    <div class="timeline"><div class="tl">
+      <div class="tl-row"><div class="lab">Future continuous<small>will be + -ing</small></div>
+        <div class="track"><span class="tag" style="left:6%">NOW</span><span class="now"></span><span class="tag" style="left:66%">tomorrow 8 p.m.</span><span class="bar" style="left:52%;width:28%"></span><span class="pt" style="left:66%"></span></div></div>
+      <div class="tl-row"><div class="lab">Future perfect<small>will have + participle</small></div>
+        <div class="track"><span class="tag" style="left:6%">NOW</span><span class="now"></span><span class="tag" style="left:76%">by Friday</span><span class="bar" style="left:30%;width:30%;background:var(--gold)"></span><span class="check" style="left:64%">✓</span><span class="pt" style="left:76%"></span></div></div>
+    </div></div>
+    <div class="forms">
+      <div class="form-card"><span class="f">will be + -ing</span><p>An action <strong>in progress</strong> at a moment in the future.</p>
+        <ul><li>Tomorrow at 8 p.m., I <strong>will be dancing</strong> in style.</li><li>She <strong>won't be sleeping</strong> at midnight.</li><li><strong>Will</strong> you <strong>be watching</strong> the skies tonight?</li></ul></div>
+      <div class="form-card"><span class="f">will have + participle</span><p>An action <strong>finished before</strong> a moment in the future (by…, by the time…).</p>
+        <ul><li>By Friday, we <strong>will have learned</strong> the chorus.</li><li>He <strong>won't have forgotten</strong> the song by then.</li><li><strong>Will</strong> our dreams <strong>have come</strong> true by 2030?</li></ul></div>
+    </div>
+    <details class="pt"><summary>Em português</summary>
+      <p><strong>Will be + -ing</strong> (future continuous): uma ação que vai estar <em>acontecendo</em> num momento do futuro. "Amanhã às 8 eu vou estar dançando."</p>
+      <p><strong>Will have + particípio</strong> (future perfect): uma ação que já vai ter <em>terminado</em> antes de um momento do futuro. "Até sexta, a gente já vai ter aprendido o refrão." Palavras-chave: <em>by, by the time, by then</em>.</p>
+    </details>
+  </div>
+
+  <div class="block" data-act="d3-choose">
+    <div class="block-head"><div><span class="eyebrow">Practice</span><h3>Choose the tense</h3><p class="how">Look for the clue words: <em>at 9 p.m., this time next year</em> (in progress) or <em>by, by the time</em> (finished).</p></div><span class="star" aria-label="star">★</span></div>
+    <div class="mcq" data-set="d3choose"></div>
+    <p class="score"></p>
+  </div>
+
+  <div class="block" data-act="d3-write">
+    <div class="block-head"><div><span class="eyebrow">Practice</span><h3>Write the verb</h3><p class="how">Use will, will be + -ing or will have + participle. Contractions (I'll, won't) are OK.</p></div><span class="star" aria-label="star">★</span></div>
+    <div class="gap" data-set="d3write"></div>
+    <div class="row"><button class="btn" data-check="d3write">Check</button><button class="btn ghost" data-reveal="d3write">Show answers</button><span class="feedback" data-fb="d3write"></span></div>
+  </div>
+  <div class="next"><button class="btn ghost" data-go="2">← Day 2</button><button class="btn" data-go="4">Next: Day 4 →</button></div>
+</section>
+
+<!-- ================= DAY 4 ================= -->
+<section class="day" id="day-4" data-day="4" hidden>
+  <div class="day-head">
+    <span class="eyebrow">Day 4 · about 20 minutes</span>
+    <h2>Game day</h2>
+    <p>Three games to make the future tenses automatic. Play them more than once and try to beat your score.</p>
+    <div class="plan"><span>Speed run</span><span>Sentence builder</span><span>Memory</span></div>
+  </div>
+
+  <div class="block" data-act="d4-speed">
+    <div class="block-head"><div><span class="eyebrow">Game 1</span><h3>60-second speed run</h3><p class="how">Choose the right form as fast as you can. Get 8 points to win the star.</p></div><span class="star" aria-label="star">★</span></div>
+    <div class="speed">
+      <div class="speed-top"><span>Score <b id="sp-score">0</b></span><span>Time <b id="sp-time">60</b></span><span>Best <b id="sp-best">0</b></span></div>
+      <div class="clock"><i id="sp-clock"></i></div>
+      <p class="speed-q" id="sp-q">Press Start. Each sentence needs will, will be + -ing or will have + participle.</p>
+      <div class="opts" id="sp-opts"></div>
+      <button class="btn" id="sp-start">Start</button>
+    </div>
+  </div>
+
+  <div class="block" data-act="d4-build">
+    <div class="block-head"><div><span class="eyebrow">Game 2</span><h3>Sentence builder</h3><p class="how">Tap the words in the right order. Tap a word in your sentence to send it back.</p></div><span class="star" aria-label="star">★</span></div>
+    <div id="builder"></div>
+    <div class="row"><button class="btn" id="build-check">Check all</button><span class="feedback" id="build-fb"></span></div>
+  </div>
+
+  <div class="block" data-act="d4-memory">
+    <div class="block-head"><div><span class="eyebrow">Game 3</span><h3>Memory: verbs from the song</h3><p class="how">Find each verb and its past participle (you need it for <em>will have + participle</em>).</p></div><span class="star" aria-label="star">★</span></div>
+    <div class="memory" id="memory"></div>
+    <div class="row"><button class="btn ghost" id="mem-reset">New game</button><span class="score" id="mem-score"></span></div>
+  </div>
+  <div class="next"><button class="btn ghost" data-go="3">← Day 3</button><button class="btn" data-go="5">Next: Day 5 →</button></div>
+</section>
+
+<!-- ================= DAY 5 ================= -->
+<section class="day" id="day-5" data-day="5" hidden>
+  <div class="day-head">
+    <span class="eyebrow">Day 5 · about 30 minutes</span>
+    <h2>Your turn: speak and write</h2>
+    <p>The song asks: <em>do you really want to live forever?</em> Today you answer with your own ideas about the future.</p>
+    <div class="plan"><span>Speaking cards</span><span>Letter to your future self</span></div>
+  </div>
+
+  <div class="block" data-act="d5-speak">
+    <div class="block-head"><div><span class="eyebrow">Speaking</span><h3>Spin a question</h3><p class="how">Answer out loud for 1 minute (record yourself or talk with a friend). Answer 3 cards to win the star.</p></div><span class="star" aria-label="star">★</span></div>
+    <div class="spin-card" id="spin-card" aria-live="polite">Press "New card"</div>
+    <div class="row"><button class="btn" id="spin-btn">New card</button><button class="btn ghost" id="spin-done" disabled>I answered it</button><span class="score" id="spin-score">0 / 3 answered</span></div>
+    <div class="frames"><span>I think I will… because…</span><span>This time next year, I'll be + -ing…</span><span>By the time I'm 30, I'll have + participle…</span><span>Honestly, I (don't) want to live forever because…</span></div>
+  </div>
+
+  <div class="block" data-act="d5-write">
+    <div class="block-head"><div><span class="eyebrow">Writing</span><h3>A letter to my future self</h3><p class="how">Write to yourself in 2036 (80–120 words). The checklist updates while you type.</p></div><span class="star" aria-label="star">★</span></div>
+    <div class="explain">
+      <p>Start with <em>Dear me in 2036,</em>. Tell your future self what you think you <strong>will be doing</strong> then, and what you <strong>will have done</strong> by then. Use one idea from the song (dancing, dreams, staying young, diamonds…).</p>
+      <details class="pt"><summary>Em português</summary><p>Escreva uma carta para você mesma em 2036 (80 a 120 palavras). Diga o que você acha que vai estar fazendo nessa época (will be + -ing) e o que já vai ter feito até lá (will have + particípio). Use uma ideia da música. Quando terminar, copie o texto e envie para a professora.</p></details>
+    </div>
+    <textarea id="letter" placeholder="Dear me in 2036,&#10;&#10;I hope you are happy. By now, you will have…"></textarea>
+    <div class="checks">
+      <div id="ck-words">80–120 words (<span id="wc">0</span>)</div>
+      <div id="ck-cont">At least 2 × will be + -ing (<span id="n-cont">0</span>)</div>
+      <div id="ck-perf">At least 2 × will have + participle (<span id="n-perf">0</span>)</div>
+      <div id="ck-song">An idea from the song (dance, dream, young, forever, diamond, music…)</div>
+    </div>
+    <div class="row"><button class="btn" id="copy-letter">Copy my letter</button><span class="note" id="copy-msg">Copy it and send it to your teacher on WhatsApp.</span></div>
+  </div>
+
+  <div class="final" id="final">
+    <span class="eyebrow" style="color:#f9d7e2">End of the week</span>
+    <h3 id="final-title">Keep going!</h3>
+    <p id="final-txt">Collect all 13 stars to finish the week.</p>
+  </div>
+  <div class="next"><button class="btn ghost" data-go="4">← Day 4</button><span></span></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>About the lyrics.</strong> The song is protected by copyright, so this page only quotes a few short lines for the exercises. To read the full lyrics while you listen, open the <a href="https://www.youtube.com/watch?v=YHRvDo8rUoQ" target="_blank" rel="noopener">official video</a> or search for the <a href="https://www.google.com/search?q=Alphaville+Forever+Young+lyrics" target="_blank" rel="noopener">licensed lyrics</a>.</p>
+    <p>Your stars are saved in this browser for each name. "Forever Young" by Alphaville (1984).</p>
+  </div>
+</footer>
+
+<div class="player" id="player"><div class="player-bar"><span>Forever Young · video</span><button type="button" id="player-min">Minimize</button></div>
+<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/YHRvDo8rUoQ?rel=0" title="Forever Young music video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
+<script>document.getElementById("player-min").addEventListener("click",function(){var p=document.getElementById("player");p.classList.toggle("min");this.textContent=p.classList.contains("min")?"Show video":"Minimize"});</script>
+<button class="sound" id="sound" aria-pressed="true">Sound on</button>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+
+/* ---------- state ---------- */
+var ACTS=["d1-gist","d1-match","d2-gap","d2-detective","d2-order","d3-song","d3-choose","d3-write","d4-speed","d4-build","d4-memory","d5-speak","d5-write"];
+var DAYACTS={1:["d1-gist","d1-match"],2:["d2-gap","d2-detective","d2-order"],3:["d3-song","d3-choose","d3-write"],4:["d4-speed","d4-build","d4-memory"],5:["d5-speak","d5-write"]};
+var who="guest", state={stars:{},best:0,letter:""};
+function key(){return "fy-study-"+who}
+function load(){try{var s=localStorage.getItem(key());state=s?JSON.parse(s):{stars:{},best:0,letter:""}}catch(e){state={stars:{},best:0,letter:""}}state.stars=state.stars||{}}
+function save(){try{localStorage.setItem(key(),JSON.stringify(state))}catch(e){}}
+function paint(){
+  var n=ACTS.filter(function(a){return state.stars[a]}).length;
+  $("#meter-txt").textContent=n+" / "+ACTS.length+" ★";
+  $("#meter-fill").style.width=(n/ACTS.length*100)+"%";
+  $$("[data-act]").forEach(function(b){var s=$(".star",b);if(s)s.classList.toggle("on",!!state.stars[b.dataset.act])});
+  for(var d=1;d<=5;d++){$("#tab-"+d).classList.toggle("done",DAYACTS[d].every(function(a){return state.stars[a]}))}
+  $("#sp-best").textContent=state.best||0;
+  var name=who==="guest"?"":", "+who;
+  if(n===ACTS.length){$("#final-title").textContent="Forever young"+name+"!";$("#final-txt").textContent="You collected all 13 stars. You finished the week. Show this screen to your teacher."}
+  else{$("#final-title").textContent="Keep going"+name+"!";$("#final-txt").textContent=(ACTS.length-n)+" stars left. Check the days without a ✓ in the menu."}
+}
+function award(id){if(state.stars[id])return;state.stars[id]=true;save();paint();toast("★ Star earned!");tone([660,880,1320])}
+
+/* ---------- sound + toast ---------- */
+var soundOn=true,ctx=null;
+function tone(fs,bad){if(!soundOn)return;try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();fs.forEach(function(f,i){var o=ctx.createOscillator(),g=ctx.createGain();o.type=bad?"sawtooth":"square";o.frequency.value=f;g.gain.setValueAtTime(.0001,ctx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.06,ctx.currentTime+i*.08+.01);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+i*.08+.14);o.connect(g);g.connect(ctx.destination);o.start(ctx.currentTime+i*.08);o.stop(ctx.currentTime+i*.08+.16)})}catch(e){}}
+function good(){tone([880,1175])}
+function bad(){tone([220,180],true)}
+$("#sound").addEventListener("click",function(){soundOn=!soundOn;this.textContent=soundOn?"Sound on":"Sound off";this.setAttribute("aria-pressed",soundOn)});
+var tt;function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("show")},1800)}
+
+/* ---------- data ---------- */
+var MCQ={
+ d1gist:[
+  {q:"1. Where is the band Alphaville from?",o:["Germany","England","The USA"],a:0,why:"Alphaville is a synth-pop band from Münster, Germany."},
+  {q:"2. At the start, the singer invites us to…",o:["fight","dance","sleep"],a:1,why:"The song begins with an invitation to dance in style."},
+  {q:"3. The chorus asks a big question. What is it about?",o:["Living forever","Getting rich","Falling in love"],a:0,why:"\"Do you really want to live forever?\""},
+  {q:"4. How does the song feel?",o:["Angry","Only happy","Happy and a little sad (bittersweet)"],a:2,why:"It celebrates youth but is worried about the future."},
+  {q:"5. \"Heaven can wait\" means…",o:["We want to go to heaven now","We don't want to die yet; let's enjoy life","Heaven is closed"],a:1,why:"There is time for heaven later. Now we want to live."}
+ ],
+ d3song:[
+  {q:"1. \"Sooner or later they all will be gone.\" Which future is this?",o:["will (prediction)","going to (plan)","will be + -ing"],a:0,why:"will + verb = a prediction about the future."},
+  {q:"2. \"Are you gonna drop the bomb or not?\" gonna means…",o:["going to","want to","got to"],a:0,why:"gonna = going to (informal, spoken)."},
+  {q:"3. \"We'll let them come true.\" Here we'll is…",o:["we would","we will (a promise)","we were"],a:1,why:"we'll = we will. It sounds like a promise about dreams."},
+  {q:"4. Change the line to say it's finished before a deadline: \"By 2100, they all ___.\"",o:["will be going","will have gone","will go"],a:1,why:"by + time → will have + participle (go → gone)."},
+  {q:"5. \"This time next year, they ___ in style.\"",o:["will have danced","will be dancing","dance"],a:1,why:"this time next year → in progress → will be + -ing."}
+ ],
+ d3choose:[
+  {q:"1. This time next year, Julia ___ \"Forever Young\" at a school concert.",o:["will sing","will be singing","will have sung"],a:1,why:"\"This time next year\" = a moment in progress."},
+  {q:"2. By the end of the week, you ___ all the vocabulary from the song.",o:["will learn","will be learning","will have learned"],a:2,why:"\"By the end of the week\" = finished before a deadline."},
+  {q:"3. \"The video is starting!\" \"Wait, I ___ it with you.\"",o:["'ll watch","'ll be watching","'ll have watched"],a:0,why:"A quick decision now → will."},
+  {q:"4. At 9 p.m. tonight, Jennifer ___ to 80s music in her room.",o:["will listen","will be listening","will have listened"],a:1,why:"At 9 p.m. the action is in progress."},
+  {q:"5. Do you think that by 2050 scientists ___ a way to stay young forever?",o:["will be finding","will have found","will find"],a:1,why:"by 2050 → will have + participle (find → found)."},
+  {q:"6. Don't call me at 8. I ___ the music video again.",o:["will be watching","will have watched","watch"],a:0,why:"At 8 I'll be in the middle of it: will be + -ing."},
+  {q:"7. By the time the chorus starts, the singer ___ about the bomb.",o:["will be asking","will have asked","will ask"],a:1,why:"\"By the time\" = finished before the chorus."},
+  {q:"8. I promise I ___ our dreams.",o:["won't forget","won't be forgetting","won't have forgotten"],a:0,why:"A promise → will / won't + verb."}
+ ]
+};
+var GAP={
+ d2gap:[
+  {b:"\"Let's dance in",a:["style"],e:", let's dance for a while\""},
+  {b:"\"Heaven can",a:["wait"],e:", we're only watching the skies\""},
+  {b:"\"Hoping for the best but expecting the",a:["worst"],e:"\""},
+  {b:"\"Are you gonna drop the",a:["bomb"],e:"or not?\""},
+  {b:"\"Sooner or later they all will be",a:["gone"],e:"\""},
+  {b:"\"Youth's like diamonds in the",a:["sun"],e:"\""}
+ ],
+ d3write:[
+  {b:"By midnight, we",a:["will have sung","'ll have sung"],e:"(sing) the chorus ten times.",w:1},
+  {b:"This time tomorrow, I",a:["will be dancing","'ll be dancing"],e:"(dance) in style.",w:1},
+  {b:"By 2100, they",a:["will all have gone","all will have gone","'ll all have gone","will have all gone"],e:"(all / go).",w:1},
+  {b:"",a:["will you be using"],e:"(you / use) the speaker tonight? I want to play the song.",w:1,cap:true},
+  {b:"In 2036, the song",a:["will have existed"],e:"(exist) for 52 years.",w:1},
+  {b:"Don't worry, our dreams",a:["will come"],e:"(come) true one day.",w:1},
+  {b:"At 7 p.m., the band",a:["will not be playing","won't be playing"],e:"(not / play). They'll be having dinner.",w:1},
+  {b:"By Friday, Julia and Jennifer",a:["will have finished","'ll have finished"],e:"(finish) this study page!",w:1}
+ ]
+};
+var CARDS=[
+ {w:"Heaven can wait",pt:"o céu pode esperar",d:"There is no hurry to die; let's live now.",x:"Heaven can wait: tonight we'll be dancing!"},
+ {w:"to drop a bomb",pt:"lançar uma bomba",d:"To let a bomb fall from a plane.",x:"In 1984, people were afraid someone would drop the bomb."},
+ {w:"hope for the best",pt:"esperar o melhor",d:"To want and believe that good things will happen.",x:"I'm hoping for the best: by June I'll have passed my test."},
+ {w:"expect the worst",pt:"esperar o pior",d:"To think that something bad will happen.",x:"Don't expect the worst. Everything will be fine."},
+ {w:"sooner or later",pt:"mais cedo ou mais tarde",d:"At some time in the future, we don't know when.",x:"Sooner or later, you'll have learned all the words."},
+ {w:"to perish",pt:"perecer, morrer",d:"To die (formal / poetic word).",x:"Old songs never perish; people will be singing this one in 2050."},
+ {w:"fading",pt:"desbotando, enfraquecendo",d:"Slowly losing colour, light or strength.",x:"The light is fading. Soon the sun will have set."},
+ {w:"without a cause",pt:"sem uma causa",d:"Without a reason or a purpose in life.",x:"I don't want to live without a cause."},
+ {w:"out of the blue",pt:"do nada, de repente",d:"Suddenly, when you don't expect it.",x:"Out of the blue, she'll call you with great news."},
+ {w:"to come true",pt:"se tornar realidade",d:"When a dream or wish becomes real.",x:"By 2030, my dream will have come true."}
+];
+var PAIRS=[
+ ["sooner or later","at some time in the future"],
+ ["to perish","to die"],
+ ["fading","slowly losing light or strength"],
+ ["out of the blue","suddenly, unexpectedly"],
+ ["to come true","to become real"],
+ ["expect the worst","think bad things will happen"],
+ ["youth","the time when you are young"],
+ ["Heaven can wait","let's enjoy life now"]
+];
+var DET=[
+ {s:"Do you really want to love forever?",wrong:5,fix:"live"},
+ {s:"Forever young, I want to be forever free",wrong:7,fix:"young"},
+ {s:"Some are like fire, some are like the heat",wrong:3,fix:"water"},
+ {s:"Let's dance in style, let's dance for a night",wrong:8,fix:"while"},
+ {s:"Heaven can wait, we're only watching the stars",wrong:7,fix:"skies"}
+];
+var ORDER=[
+ "The singer invites everyone to dance.",
+ "He asks if someone is going to drop the bomb.",
+ "He says they don't have the power, but they never say never.",
+ "The chorus: he wants to be young forever.",
+ "He compares people to water, heat, a melody and a beat.",
+ "He says youth is like diamonds in the sun.",
+ "He talks about dreams that they will let come true."
+];
+var SPEED=[
+ {s:"By 2030, I ___ from university.",o:["will graduate","will be graduating","will have graduated"],a:2},
+ {s:"At 10 p.m. tomorrow, we ___ the match.",o:["will watch","will be watching","will have watched"],a:1},
+ {s:"\"It's cold.\" \"I ___ the window.\"",o:["'ll close","'ll be closing","'ll have closed"],a:0},
+ {s:"This time next week, they ___ on a beach.",o:["will lie","will be lying","will have lain"],a:1},
+ {s:"By the time you arrive, I ___ dinner.",o:["will cook","will be cooking","will have cooked"],a:2},
+ {s:"\"I'm thirsty.\" \"I ___ you some water.\"",o:["'ll get","'ll be getting","'ll have got"],a:0},
+ {s:"Don't phone at 9. I ___ my homework.",o:["will do","will be doing","will have done"],a:1},
+ {s:"By Friday, she ___ the whole series.",o:["will watch","will be watching","will have watched"],a:2},
+ {s:"I promise I ___ anyone.",o:["won't tell","won't be telling","won't have told"],a:0},
+ {s:"At 3 p.m., we ___ the test.",o:["will still do","will still be doing","will still have done"],a:1},
+ {s:"By midnight, we ___ all the songs.",o:["will play","will be playing","will have played"],a:2},
+ {s:"___ you ___ the car this evening?",o:["Will / use","Will / be using","Will / have used"],a:1},
+ {s:"By the end of the year, he ___ 20 books.",o:["will read","will be reading","will have read"],a:2},
+ {s:"\"The phone is ringing!\" \"I ___ it.\"",o:["'ll answer","'ll be answering","'ll have answered"],a:0},
+ {s:"Tomorrow at noon, the band ___ on stage.",o:["will play","will be playing","will have played"],a:1},
+ {s:"By 2040, scientists ___ a cure.",o:["will find","will be finding","will have found"],a:2},
+ {s:"Tomorrow at 7 a.m., I ___ to work.",o:["will drive","will be driving","will have driven"],a:1},
+ {s:"\"Who wants pizza?\" \"I ___ some!\"",o:["'ll have","'ll be having","'ll have had"],a:0}
+];
+var BUILD=[
+ "This time next year I will be dancing in style .",
+ "By midnight we will have played all the songs .",
+ "Will you be watching the skies tonight ?",
+ "Our dreams will have come true by 2030 .",
+ "She won't have forgotten the song by Friday ."
+];
+var MEM=[["sing","sung"],["forget","forgotten"],["win","won"],["go","gone"],["drop","dropped"],["come","come"],["play","played"],["let","let"]];
+var SPIN=[
+ "Do you really want to live forever? Why or why not?",
+ "This time next year, what will you be doing?",
+ "By the time you're 30, what will you have done?",
+ "What will you be doing on a Saturday night in 2040?",
+ "Which dream will you have made come true by 2035?",
+ "The song is from 1984. What will people be listening to in 2084?",
+ "What adventures will you have had by the end of next year?",
+ "What will young people be worrying about in 20 years?",
+ "Which song from today will people still be singing in 50 years?",
+ "Is it better to be young or old? Give two reasons."
+];
+
+/* ---------- MCQ ---------- */
+$$(".mcq").forEach(function(box){
+  var set=MCQ[box.dataset.set],block=box.closest("[data-act]"),score=$(".score",block),answered=0,right=0;
+  set.forEach(function(it){
+    var q=el("div","q");q.appendChild(el("p",null,it.q));
+    var opts=el("div","opts"),why=el("p","why");why.hidden=true;
+    it.o.forEach(function(t,i){var b=el("button","opt",t);b.type="button";b.addEventListener("click",function(){
+      if(q.dataset.done)return;
+      if(i===it.a){b.classList.add("right");q.dataset.done=1;answered++;if(!q.dataset.miss)right++;why.textContent="✓ "+it.why;why.hidden=false;$$(".opt",opts).forEach(function(x){x.disabled=true});good();
+        score.textContent=right+" / "+set.length+" right on the first try";
+        if(answered===set.length){award(block.dataset.act);score.textContent+=" · finished!"}}
+      else{b.classList.add("wrong");b.disabled=true;q.dataset.miss=1;why.textContent="Not quite. Try again.";why.hidden=false;bad()}
+    });opts.appendChild(b)});
+    q.appendChild(opts);q.appendChild(why);box.appendChild(q);
+  });
+});
+
+/* ---------- GAP ---------- */
+function norm(s){return s.toLowerCase().replace(/[’`]/g,"'").replace(/[.,!?"]/g,"").replace(/\s+/g," ").trim()}
+function exp(s){return norm(s).replace(/\b(i|you|we|they|he|she|it)'ll\b/g,"$1 will").replace(/^'ll/,"will").replace(/won't/g,"will not")}
+$$(".gap").forEach(function(box){
+  var id=box.dataset.set,set=GAP[id];
+  set.forEach(function(it,i){
+    var line=el("div","gap-line");line.appendChild(el("span","n",(i+1)+"."));
+    if(it.b)line.appendChild(el("span",null,it.b));
+    var inp=document.createElement("input");inp.id=id+"-"+i;inp.autocomplete="off";inp.spellcheck=false;inp.setAttribute("aria-label","Gap "+(i+1));if(it.w)inp.className="wide";
+    line.appendChild(inp);line.appendChild(el("span",null,it.e));
+    var k=el("span","key");k.hidden=true;line.appendChild(k);box.appendChild(line);
+    inp.addEventListener("keydown",function(e){if(e.key==="Enter"){var c=$('[data-check="'+id+'"]');if(c)c.click()}});
+  });
+  var block=box.closest("[data-act]"),fb=$('[data-fb="'+id+'"]',block);
+  $('[data-check="'+id+'"]',block).addEventListener("click",function(){
+    var ok=0;set.forEach(function(it,i){var inp=$("#"+id+"-"+i),v=exp(inp.value),hit=it.a.some(function(a){return exp(a)===v});
+      inp.classList.toggle("ok",hit);inp.classList.toggle("no",!hit&&inp.value.trim()!=="");if(hit)ok++});
+    fb.textContent=ok+" / "+set.length+" correct"+(ok===set.length?". Perfect!":". Fix the red ones and check again.");
+    fb.className="feedback "+(ok===set.length?"good":"meh");
+    if(ok===set.length){award(block.dataset.act)}else bad();
+  });
+  $('[data-reveal="'+id+'"]',block).addEventListener("click",function(){
+    $$(".key",box).forEach(function(k,i){var a=set[i].a[0];k.textContent="→ "+(set[i].cap?a.charAt(0).toUpperCase()+a.slice(1):a);k.hidden=false});
+  });
+});
+
+/* ---------- FLIP CARDS ---------- */
+CARDS.forEach(function(c){
+  var b=el("button","flip");b.type="button";b.setAttribute("aria-label",c.w+": tap to flip");
+  b.innerHTML='<span class="in"><span class="f"><b></b><small>Tap to flip</small></span><span class="b"><span class="d"></span><em></em><span class="x"></span></span></span>';
+  $(".f b",b).textContent=c.w;$(".d",b).textContent=c.d;$("em",b).textContent="PT: "+c.pt;$(".x",b).textContent="“"+c.x+"”";
+  b.addEventListener("click",function(){b.classList.toggle("on")});
+  $("#flipcards").appendChild(b);
+});
+
+/* ---------- MATCH ---------- */
+function buildMatch(){
+  var box=$("#match1");box.innerHTML="";var L=el("div","col"),R=el("div","col"),sel=null,done=0,miss=0;
+  $("#match1-score").textContent="";
+  shuffle(PAIRS.map(function(p,i){return [p[0],i]})).forEach(function(p){var t=el("button","tile",p[0]);t.type="button";t.dataset.i=p[1];
+    t.addEventListener("click",function(){if(t.classList.contains("gone"))return;$$(".tile",L).forEach(function(x){x.classList.remove("sel")});t.classList.add("sel");sel=t});L.appendChild(t)});
+  shuffle(PAIRS.map(function(p,i){return [p[1],i]})).forEach(function(p){var t=el("button","tile",p[0]);t.type="button";t.dataset.i=p[1];
+    t.addEventListener("click",function(){if(t.classList.contains("gone"))return;if(!sel){toast("First tap an expression on the left");return}
+      if(sel.dataset.i===t.dataset.i){sel.classList.remove("sel");sel.classList.add("gone");t.classList.add("gone");sel=null;done++;good();
+        $("#match1-score").textContent=done+" / "+PAIRS.length+" pairs · "+miss+" mistakes";if(done===PAIRS.length)award("d1-match")}
+      else{miss++;bad();[t,sel].forEach(function(x){x.classList.remove("shake");void x.offsetWidth;x.classList.add("shake")});$("#match1-score").textContent=done+" / "+PAIRS.length+" pairs · "+miss+" mistakes"}});R.appendChild(t)});
+  box.appendChild(L);box.appendChild(R);
+}
+buildMatch();$("#match1-reset").addEventListener("click",buildMatch);
+
+/* ---------- DETECTIVE ---------- */
+(function(){var found=0;DET.forEach(function(d){
+  var row=el("div","det"),words=d.s.split(" ");
+  words.forEach(function(w,i){var b=el("button","w",w);b.type="button";b.addEventListener("click",function(){
+    if(row.dataset.done)return;
+    if(i===d.wrong){b.classList.add("right");row.dataset.done=1;found++;row.appendChild(el("span","fix","→ "+d.fix));good();
+      $("#det-score").textContent=found+" / "+DET.length+" found";if(found===DET.length)award("d2-detective")}
+    else{b.classList.add("wrong");bad();setTimeout(function(){b.classList.remove("wrong")},600)}
+  });row.appendChild(b)});
+  $("#detective").appendChild(row);
+})})();
+
+/* ---------- ORDER ---------- */
+function buildOrder(){
+  var pool=$("#order-pool"),line=$("#order-line");pool.innerHTML="";line.innerHTML="";line.className="ordlist";$("#order-fb").textContent="";
+  shuffle(ORDER.map(function(t,i){return [t,i]})).forEach(function(p){var t=el("button","tile",p[0]);t.type="button";t.dataset.i=p[1];
+    t.addEventListener("click",function(){if(t.parentNode===pool)line.appendChild(t);else pool.appendChild(t);line.className="ordlist"});pool.appendChild(t)});
+}
+buildOrder();$("#order-reset").addEventListener("click",buildOrder);
+$("#order-check").addEventListener("click",function(){
+  var tiles=$$(".tile",$("#order-line")),fb=$("#order-fb");
+  if(tiles.length<ORDER.length){fb.textContent="Put all "+ORDER.length+" sentences in your list first.";fb.className="feedback meh";return}
+  var ok=tiles.filter(function(t,i){return +t.dataset.i===i}).length;
+  $("#order-line").className="ordlist "+(ok===ORDER.length?"ok":"no");
+  fb.textContent=ok===ORDER.length?"Perfect order!":ok+" / "+ORDER.length+" in the right place. Listen again and fix it.";
+  fb.className="feedback "+(ok===ORDER.length?"good":"meh");
+  if(ok===ORDER.length)award("d2-order");else bad();
+});
+
+/* ---------- SPEED ---------- */
+(function(){var timer=null,left=60,score=0,cur=null,deck=[];
+  function next(){if(!deck.length)deck=shuffle(SPEED);cur=deck.pop();$("#sp-q").textContent=cur.s;var o=$("#sp-opts");o.innerHTML="";
+    cur.o.forEach(function(t,i){var b=el("button","opt",t);b.type="button";b.addEventListener("click",function(){if(!timer)return;
+      if(i===cur.a){score++;good()}else{score=Math.max(0,score-1);bad();toast("✗ "+cur.o[cur.a])}$("#sp-score").textContent=score;next()});o.appendChild(b)})}
+  function end(){clearInterval(timer);timer=null;$("#sp-opts").innerHTML="";$("#sp-start").hidden=false;$("#sp-start").textContent="Play again";
+    $("#sp-q").textContent="Time's up! You scored "+score+"."+(score>=8?" Great job!":" Get 8 to win the star.");
+    if(score>(state.best||0)){state.best=score;save();paint()}if(score>=8)award("d4-speed")}
+  $("#sp-start").addEventListener("click",function(){score=0;left=60;$("#sp-score").textContent=0;$("#sp-time").textContent=60;$("#sp-clock").style.width="100%";this.hidden=true;deck=shuffle(SPEED);
+    timer=setInterval(function(){left--;$("#sp-time").textContent=left;$("#sp-clock").style.width=(left/60*100)+"%";if(left<=0)end()},1000);next()});
+})();
+
+/* ---------- BUILDER ---------- */
+(function(){var box=$("#builder");
+  BUILD.forEach(function(s,k){var item=el("div","builder-item"),pool=el("div","pool"),line=el("div","line");line.dataset.k=k;
+    item.appendChild(el("span","eyebrow","Sentence "+(k+1)));
+    var words=s.split(" "),order;do{order=shuffle(words)}while(order.join(" ")===s&&words.length>2);
+    order.forEach(function(w){var b=el("button","word",w);b.type="button";b.addEventListener("click",function(){(b.parentNode===pool?line:pool).appendChild(b);line.classList.remove("ok","no")});pool.appendChild(b)});
+    item.appendChild(line);item.appendChild(pool);box.appendChild(item)});
+  $("#build-check").addEventListener("click",function(){var ok=0;
+    $$(".line",box).forEach(function(l){var got=$$(".word",l).map(function(w){return w.textContent}).join(" "),hit=got===BUILD[+l.dataset.k];l.classList.toggle("ok",hit);l.classList.toggle("no",!hit);if(hit)ok++});
+    var fb=$("#build-fb");fb.textContent=ok+" / "+BUILD.length+" correct";fb.className="feedback "+(ok===BUILD.length?"good":"meh");
+    if(ok===BUILD.length)award("d4-build");else bad()});
+})();
+
+/* ---------- MEMORY ---------- */
+function buildMemory(){
+  var box=$("#memory");box.innerHTML="";var open=[],done=0,moves=0,lock=false;$("#mem-score").textContent="";
+  var cards=[];MEM.forEach(function(p,i){cards.push({t:p[0],i:i},{t:p[1],i:i})});
+  shuffle(cards).forEach(function(c){var b=el("button","mcard",c.t);b.type="button";b.dataset.i=c.i;b.setAttribute("aria-label","Hidden card");
+    b.addEventListener("click",function(){if(lock||b.classList.contains("up")||b.classList.contains("done"))return;
+      b.classList.add("up");b.setAttribute("aria-label",c.t);open.push(b);
+      if(open.length===2){moves++;var a=open[0],z=open[1];
+        if(a.dataset.i===z.dataset.i&&a!==z){a.classList.add("done");z.classList.add("done");a.classList.remove("up");z.classList.remove("up");open=[];done++;good();
+          if(done===MEM.length){award("d4-memory");$("#mem-score").textContent="All pairs in "+moves+" moves!"}else $("#mem-score").textContent=done+" / "+MEM.length+" pairs · "+moves+" moves"}
+        else{lock=true;setTimeout(function(){a.classList.remove("up");z.classList.remove("up");a.setAttribute("aria-label","Hidden card");z.setAttribute("aria-label","Hidden card");open=[];lock=false},900);$("#mem-score").textContent=done+" / "+MEM.length+" pairs · "+moves+" moves"}}
+    });box.appendChild(b)});
+}
+buildMemory();$("#mem-reset").addEventListener("click",buildMemory);
+
+/* ---------- SPIN ---------- */
+(function(){var answered=0,deck=[],spinning=false;
+  $("#spin-btn").addEventListener("click",function(){if(spinning)return;spinning=true;var n=0,card=$("#spin-card");
+    var iv=setInterval(function(){card.textContent=SPIN[Math.floor(Math.random()*SPIN.length)];tone([440+n*30]);if(++n>8){clearInterval(iv);if(!deck.length)deck=shuffle(SPIN);card.textContent=deck.pop();spinning=false;$("#spin-done").disabled=false}},70)});
+  $("#spin-done").addEventListener("click",function(){answered++;this.disabled=true;$("#spin-score").textContent=Math.min(answered,3)+" / 3 answered"+(answered>3?" (+"+(answered-3)+" extra)":"");good();if(answered>=3)award("d5-speak")});
+})();
+
+/* ---------- WRITING ---------- */
+function checkLetter(){
+  var t=$("#letter").value,words=(t.match(/[A-Za-zÀ-ÿ']+/g)||[]).length;
+  var cont=(t.match(/\b(will|'ll|won't|will not)\s+be\s+[a-z]+ing\b/gi)||[]).length+(t.match(/\b\w+'ll\s+be\s+[a-z]+ing\b/gi)||[]).length;
+  var perf=(t.match(/\b(will|won't|will not)\s+have\s+(?!to\b)[a-z]+/gi)||[]).length+(t.match(/\b\w+'ll\s+have\s+(?!to\b)[a-z]+\b/gi)||[]).length;
+  var song=/\b(danc|dream|young|youth|forever|diamond|music|song|sun|heaven|skies|sky)/i.test(t);
+  $("#wc").textContent=words;$("#n-cont").textContent=cont;$("#n-perf").textContent=perf;
+  var w=words>=80&&words<=120;$("#ck-words").classList.toggle("ok",w);$("#ck-cont").classList.toggle("ok",cont>=2);$("#ck-perf").classList.toggle("ok",perf>=2);$("#ck-song").classList.toggle("ok",song);
+  state.letter=t;save();
+  if(w&&cont>=2&&perf>=2&&song)award("d5-write");
+}
+var lt;$("#letter").addEventListener("input",function(){clearTimeout(lt);lt=setTimeout(checkLetter,250)});
+$("#copy-letter").addEventListener("click",function(){var ta=$("#letter"),txt=ta.value;var msg=$("#copy-msg");
+  if(!txt.trim()){msg.textContent="Write your letter first.";return}
+  try{navigator.clipboard.writeText(txt).then(function(){msg.textContent="Copied! Paste it in WhatsApp for your teacher."},function(){ta.select();msg.textContent="Text selected. Press Ctrl+C (or long-press) to copy."})}catch(e){ta.select();msg.textContent="Text selected. Press Ctrl+C (or long-press) to copy."}});
+
+/* ---------- days + who ---------- */
+function show(d){d=String(d);if(!/^[1-5]$/.test(d))d="1";
+  $$(".day").forEach(function(s){s.hidden=s.dataset.day!==d});
+  $$(".tab").forEach(function(t){t.setAttribute("aria-selected",t.dataset.day===d)});
+  try{localStorage.setItem("fy-day",d)}catch(e){}
+}
+$$(".tab").forEach(function(t){t.addEventListener("click",function(){location.hash="day-"+t.dataset.day})});
+$$("[data-go]").forEach(function(b){b.addEventListener("click",function(){location.hash="day-"+b.dataset.go;window.scrollTo({top:$(".tabs").offsetTop,behavior:"smooth"})})});
+window.addEventListener("hashchange",function(){var m=location.hash.match(/day-([1-5])/);if(m)show(m[1])});
+function setWho(n){who=n;$$(".chip").forEach(function(c){c.setAttribute("aria-pressed",c.dataset.name===n)});try{localStorage.setItem("fy-who",n)}catch(e){}
+  load();$("#letter").value=state.letter||"";checkLetter();paint()}
+$$(".chip").forEach(function(c){c.addEventListener("click",function(){setWho(c.dataset.name);toast("Hi, "+c.dataset.name+"!")})});
+
+var startWho="guest";try{startWho=localStorage.getItem("fy-who")||"guest"}catch(e){}
+setWho(startWho);
+var m=location.hash.match(/day-([1-5])/),sd=m?m[1]:null;if(!sd){try{sd=localStorage.getItem("fy-day")}catch(e){}}
+show(sd||"1");
+})();
+</script>
+
+</body></html>
